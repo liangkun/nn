@@ -1,0 +1,22 @@
+#!/bin/bash
+# Copyright (c) 2014 Liang Kun. All Rights Reserved.
+# Authors: Liang Kun <liangkun@data-intelli.com>
+#
+# This will create an interactive scala shell with sann (and all the
+# dependencies) contained in the class path. Use scala worksheet if you are
+# using IntelliJ, that's much convenient.
+#
+# Make sure SCALA_HOME are set properply.
+
+bin=`which $0`
+bin=`dirname ${bin}`
+bin=`cd "$bin"; pwd`
+
+if [ -z "$SCALA_HOME" ]; then
+    echo "SCALA_HOME is not set"
+    exit 1
+fi
+
+fat_jar="$bin/../target/sann-0.9-SNAPSHOT-jar-with-dependencies.jar"
+
+"$SCALA_HOME/bin/scala" -cp "$fat_jar" $@
