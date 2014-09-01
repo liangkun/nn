@@ -13,7 +13,9 @@
     <packaging>jar</packaging>
 
     <properties>
-        <scala.version>2.11.2</scala.version>
+        <scala.version.major>2.11</scala.version.major>
+        <scala.version.minor>2</scala.version.minor>
+        <scala.version>${scala.version.major}.${scala.version.minor}</scala.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -22,6 +24,11 @@
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
             <version>${scala.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scalanlp</groupId>
+            <artifactId>breeze_${scala.version.major}</artifactId>
+            <version>0.9</version>
         </dependency>
     </dependencies>
 
