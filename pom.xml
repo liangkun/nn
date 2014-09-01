@@ -28,12 +28,17 @@
         <dependency>
             <groupId>org.scalanlp</groupId>
             <artifactId>breeze_${scala.version.major}</artifactId>
-            <version>0.10-SNAPSHOT</version>
+            <version>0.9</version>
         </dependency>
         <dependency>
             <groupId>org.scalanlp</groupId>
             <artifactId>breeze-natives_${scala.version.major}</artifactId>
-            <version>0.10-SNAPSHOT</version>
+            <version>0.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scalanlp</groupId>
+            <artifactId>breeze-viz_${scala.version.major}</artifactId>
+            <version>0.9</version>
         </dependency>
     </dependencies>
 
@@ -90,18 +95,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <repositories>
-        <repository>
-            <id>sonatype-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
 
 </project>
