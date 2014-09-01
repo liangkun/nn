@@ -29,18 +29,11 @@
             <groupId>org.scalanlp</groupId>
             <artifactId>breeze_${scala.version.major}</artifactId>
             <version>0.10-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.github.fommil.netlib</groupId>
-                    <artifactId>core</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
-            <groupId>com.github.fommil.netlib</groupId>
-            <artifactId>all</artifactId>
-            <version>1.1.2</version>
-            <type>pom</type>
+            <groupId>org.scalanlp</groupId>
+            <artifactId>breeze-natives_${scala.version.major}</artifactId>
+            <version>0.10-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
@@ -110,4 +103,5 @@
             </snapshots>
         </repository>
     </repositories>
+
 </project>
