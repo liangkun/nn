@@ -54,6 +54,8 @@
                         <arg>-deprecation</arg>
                         <arg>-explaintypes</arg>
                         <arg>-optimise</arg>
+                        <arg>-feature</arg>
+                        <arg>-language:implicitConversions</arg>
                     </args>
                 </configuration>
                 <executions>
