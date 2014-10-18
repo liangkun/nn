@@ -16,6 +16,7 @@
         <scala.version.major>2.11</scala.version.major>
         <scala.version.minor>2</scala.version.minor>
         <scala.version>${scala.version.major}.${scala.version.minor}</scala.version>
+        <breeze.version>0.10</breeze.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -28,17 +29,23 @@
         <dependency>
             <groupId>org.scalanlp</groupId>
             <artifactId>breeze_${scala.version.major}</artifactId>
-            <version>0.9</version>
+            <version>${breeze.version}</version>
         </dependency>
         <dependency>
             <groupId>org.scalanlp</groupId>
             <artifactId>breeze-natives_${scala.version.major}</artifactId>
-            <version>0.9</version>
+            <version>${breeze.version}</version>
         </dependency>
         <dependency>
             <groupId>org.scalanlp</groupId>
             <artifactId>breeze-viz_${scala.version.major}</artifactId>
             <version>0.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.1.1</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -52,7 +59,6 @@
                     <args>
                         <arg>-unchecked</arg>
                         <arg>-deprecation</arg>
-                        <arg>-explaintypes</arg>
                         <arg>-optimise</arg>
                         <arg>-feature</arg>
                         <arg>-language:implicitConversions</arg>
