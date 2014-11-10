@@ -243,15 +243,4 @@ package object sann {
 
   /** sign function that make 0 to be -1. */
   def sign(x: Float): Float = if (x <= 0) -1f else 1f
-
-  /** shuffle data points */
-  def shuffle(data: DenseMatrix[Float], seed: Long): Unit = {
-    val tmpData = data.copy
-
-    val rand = new Random(seed)
-    val newIndexes = rand.shuffle((0 until data.rows).toVector)
-    for ((i, old) <- newIndexes.zipWithIndex) {
-      data(i, ::) := tmpData(old, ::)
-    }
-  }
 }

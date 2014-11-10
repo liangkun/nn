@@ -10,6 +10,8 @@ import scala.io.Source
 import org.testng.Assert._
 import org.testng.annotations.{Test, DataProvider}
 
+import org.sann.utils.shuffleRows
+
 class SANNTest {
   @Test(dataProvider = "SourceDataProvider")
   def testLoadData(src: Source, expected: DenseMatrix[Float]): Unit = {
@@ -119,8 +121,7 @@ class SANNTest {
     )
 
     for (i <- 0 to 9) {
-      val tmpData = data.copy
-      shuffle(tmpData, i)
+      val tmpData = shuffleRows(data)
 
       assertEquals(tmpData.rows, data.rows)
       assertEquals(tmpData.cols, data.cols)
