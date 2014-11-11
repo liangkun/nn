@@ -38,7 +38,7 @@ object Perceptron {
             maxIters: Int = Int.MaxValue,
             learningRate: Float = 1f,
             pocket: Boolean = false,
-            errorCollector: Option[Double => Unit] = None): (Int, Int) = {
+            errorCollector: Option[Float => Unit] = None): (Int, Int) = {
     var iters = 0
 
     var pocketWeights = if (pocket) weights.copy else DenseVector(0f)
@@ -56,7 +56,7 @@ object Perceptron {
           pocketErrors = errors
           pocketWeights := weights
         }
-        if (errorCollector.nonEmpty) errorCollector.get (errors / ys.length)
+        if (errorCollector.nonEmpty) errorCollector.get (errors.toFloat / ys.length.toFloat)
       }
 
       next = nextError(next, weights, xs, ys)
@@ -112,4 +112,15 @@ object Perceptron {
 
   /** sign function that make 0 to be -1. */
   def sign(x: Float): Float = if (x <= 0) -1f else 1f
+
+  /** A simple error collector, put all the errors into a list in order */
+  class ListErrorCollector extends (Float => Unit) {
+    private[this] var result = List[Float]()
+
+    /** accumulate one error */
+    def apply(e: Float): Unit = result = e :: result
+
+    /** get the result list */
+    def get: List[Float] = result.reverse
+  }
 }

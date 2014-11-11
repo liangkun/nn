@@ -6,11 +6,12 @@ package org.sann
 import scala.io.Source
 
 import breeze.linalg.{DenseMatrix, DenseVector}
-import breeze.plot.{Figure, plot}
+import breeze.plot.Figure
 
 import org.sann.algos.Perceptron
 import org.sann.data.gen.DoubleMoon
 import org.sann.data.io
+import org.sann.utils.plotBinaryDataPoints
 import org.sann.utils.shuffleRows
 
 object Main {
@@ -18,16 +19,10 @@ object Main {
 
   }
 
-  def plotDoubleMoon():Unit = {
+  def plotDoubleMoon(size: Int = 1000, d: Float = 0.0f): Unit = {
     val fig = new Figure("DoubleMoon")
     val plt = fig.subplot(0)
-    val size = 1000
-    val samples = DoubleMoon.gen(size, 0, shuffle = false)
-    val positives = samples(0 until size / 2, 0 to 1)
-    val negatives = samples(size / 2 until size, 0 to 1)
-    plt += plot(positives(::, 0), positives(::, 1), '+')
-    plt += plot(negatives(::, 0), negatives(::, 1), '.')
-
+    plotBinaryDataPoints(DoubleMoon.gen(size, d)).foreach(s => plt += s)
   }
 
   def mlfHw(): Unit = {

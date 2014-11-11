@@ -7,10 +7,6 @@ package org
 
 import breeze.linalg._
 
-import scala.collection.mutable.ArrayBuffer
-import scala.io.Source
-import scala.util.Random
-
 package object sann {
   /** Type of an activating function. */
   type Activator = DenseVector[Double] => DenseVector[Double]
@@ -52,7 +48,7 @@ package object sann {
 
   def inputs(size: Int) = Neurons(size, linearActivator, List())
 
-  implicit def neuronsToSannNode(neurons: Neurons) = SannNode(neurons)
+  implicit def neuronsToSannNode(neurons: Neurons): SannNode = SannNode(neurons)
 
   def perceptronLearner(
     weights: DenseMatrix[Double],
