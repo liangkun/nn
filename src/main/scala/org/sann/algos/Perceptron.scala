@@ -56,7 +56,15 @@ object Perceptron {
           pocketErrors = errors
           pocketWeights := weights
         }
-        if (errorCollector.nonEmpty) errorCollector.get (errors.toFloat / ys.length.toFloat)
+
+        if (errorCollector.nonEmpty) {
+          val collector = errorCollector.get
+          if (pocket) {
+            collector(pocketErrors.toFloat / ys.length.toFloat)
+          } else {
+            collector(errors.toFloat / ys.length.toFloat)
+          }
+        }
       }
 
       next = nextError(next, weights, xs, ys)
