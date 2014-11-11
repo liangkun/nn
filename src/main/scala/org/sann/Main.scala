@@ -7,8 +7,10 @@ import scala.io.Source
 
 import breeze.linalg.{DenseMatrix, DenseVector}
 import breeze.plot.{Figure, plot}
-import org.sann.data.gen.DoubleMoon
 
+import org.sann.algos.Perceptron
+import org.sann.data.gen.DoubleMoon
+import org.sann.data.io
 import org.sann.utils.shuffleRows
 
 object Main {
@@ -29,8 +31,8 @@ object Main {
   }
 
   def mlfHw(): Unit = {
-    val data = loadData(Source.fromFile("D:\\workspace\\nn\\hw1_18_train.txt"))
-    val test = loadData(Source.fromFile("D:\\workspace\\nn\\hw1_18_test.txt"))
+    val data = io.loadDelimited(Source.fromFile("D:\\workspace\\nn\\hw1_18_train.txt"))
+    val test = io.loadDelimited(Source.fromFile("D:\\workspace\\nn\\hw1_18_test.txt"))
     val testXs = DenseMatrix.horzcat(DenseMatrix.ones[Float](test.rows, 1), test(::, 0 until (test.cols -1)))
     val testYs = test(::, test.cols - 1)
 
@@ -41,9 +43,9 @@ object Main {
       val xs = DenseMatrix.horzcat(DenseMatrix.ones[Float](n, 1), tmpData(::, 0 until (tmpData.cols - 1)))
       val ys = tmpData(::, tmpData.cols - 1)
       val weights = DenseVector.zeros[Float](xs.cols)
-      val (iters, errors) = perceptron(weights, xs, ys, maxIters = 100, pocket = true)
+      val (iters, errors) = Perceptron.train(weights, xs, ys, maxIters = 100, pocket = true)
       assert(iters == 101 || errors == 0)
-      totalErrors += countErrors(weights, testXs, testYs).toFloat / testXs.rows
+      totalErrors += Perceptron.countErrors(weights, testXs, testYs).toFloat / testXs.rows
     }
 
     println(totalErrors / 2000.0)

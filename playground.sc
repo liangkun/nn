@@ -5,4 +5,5 @@ import breeze.stats.distributions._
 import breeze.plot._
 import org.sann._
 
-Main.plotDoubleMoon()
+//Main.plotDoubleMoon()
+
