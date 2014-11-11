@@ -12,7 +12,7 @@ val size = 1000
 val train = DoubleMoon.gen(size, -2)
 val xs = DenseMatrix.horzcat(DenseMatrix.ones[Float](size, 1), train(::, 0 to 1))
 val ys = train(::, 2)
-val weights = DenseVector(2f, 1f, 1f)
+val weights = DenseVector.zeros[Float](3)
 val ecollector = new ListErrorCollector
 val (iters, error) = Perceptron.train(
   weights,
