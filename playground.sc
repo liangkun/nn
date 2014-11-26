@@ -8,4 +8,3 @@ import org.sann.algos.Perceptron.ListErrorCollector
 import org.sann.data.gen.DoubleMoon
 import org.sann._
 
-
