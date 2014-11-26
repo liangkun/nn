@@ -1,7 +1,8 @@
 /**
- * Copyright (c) 2014 XiaoMi Inc. All Rights Reserved.
- * Authors: Liang Kun <liangkun@xiaomi.com>
+ * Copyright (c) 2014 Liang Kun. All Rights Reserved.
+ * Authors: Liang Kun <liangkun@data-intelli.com>
  */
+
 package org.sann
 
 import scala.util.Random

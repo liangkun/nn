@@ -17,6 +17,6 @@ if [ -z "$SCALA_HOME" ]; then
     exit 1
 fi
 
-fat_jar="$bin/../target/sann-0.9-SNAPSHOT-jar-with-dependencies.jar"
+fat_jar=`ls $bin/../target/scala-*/sann-*.jar`
 
 "$SCALA_HOME/bin/scala" -cp "$fat_jar" $@
