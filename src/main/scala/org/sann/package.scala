@@ -5,6 +5,8 @@
 
 package org
 
+import scala.language.implicitConversions
+
 import breeze.linalg._
 
 package object sann {
