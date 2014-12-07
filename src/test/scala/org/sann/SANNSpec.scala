@@ -5,6 +5,6 @@
 
 package org.sann
 
-class SANNTest {
+class SANNSpec extends UnitSpec {
 
 }
