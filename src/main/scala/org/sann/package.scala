@@ -8,6 +8,7 @@ package org
 import scala.language.implicitConversions
 
 import breeze.linalg._
+import breeze.stats.distributions.Rand
 
 package object sann {
   /** Type of an activating function (vectorized). */
@@ -47,25 +48,76 @@ package object sann {
 
   /**
    * Compiled Sann with compact internal representation, ready for training and working.
+   *
+   * Currently only support linear layers.
    */
-  class CompiledSann {
+  class CompiledSann(
+    val neuronses: Array[Neurons],
+    val weights: Array[DenseMatrix[Double]],
+    val impulses: Array[DenseVector[Double]],
+    val errors: Array[DenseVector[Double]]
+  ) {
 
   }
 
   def compile(output: Neurons): CompiledSann = {
-    val neuronsCount = countCascade(output)
-    ???
+    val neuronses = topologySort(output).toArray
+    val numNeurons = neuronses.size
+    assert(neuronses(numNeurons - 1) == output, "Topology sort error ?")
+
+    val weights = Array.tabulate(numNeurons) { idx =>
+      val neurons = neuronses(idx)
+      if (neurons.inputs.isEmpty) {
+        null  // networks input weights should never be used
+      } else {
+        val inputSize = neurons.inputs.foldLeft(0)((size, input) => size + input.input.cardinality)
+        val layerSize = neurons.cardinality
+        val weight = DenseMatrix.rand[Double](layerSize, inputSize, Rand.uniform)
+        weight :*= 2
+        weight :+= -1
+        weight
+      }
+    }
+
+    val impulses = Array.tabulate(numNeurons) { idx =>
+      val size = neuronses(idx).cardinality
+      DenseVector.zeros[Double](size)
+    }
+
+    val errors = Array.tabulate(numNeurons) { idx =>
+      val size = neuronses(idx).cardinality
+      DenseVector.zeros[Double](size)
+    }
+
+    new CompiledSann(neuronses, weights, impulses, errors)
   }
 
-  // count all the neurons that can reach the specified neurons.
-  private def countCascade(neurons: Neurons, seen: Set[Neurons] = Set()): Int = {
+  def topologySort(neurons: Neurons, seen: Set[Neurons] = Set()): List[Neurons] = {
+    reverseTopologySort(neurons, seen).reverse
+  }
+
+  def reverseTopologySort(neurons: Neurons, seen: Set[Neurons] = Set()): List[Neurons] = {
+    if (seen.contains(neurons)) {
+      List()
+    } else {
+      val updatedSeen = seen + neurons
+      var result = List(neurons)
+      for (input <- neurons.inputs) {
+        result ++= reverseTopologySort(input.input, updatedSeen)
+      }
+      result
+    }
+  }
+
+  // Number of all the neurons that can reach the specified neurons(including).
+  def reachingNeuronsNum(neurons: Neurons, seen: Set[Neurons] = Set()): Int = {
     if (seen.contains(neurons)) {
       0
     } else {
       var count = 1
       val updatedSeen = seen + neurons
       for (input <- neurons.inputs) {
-        count += countCascade(input.input, updatedSeen)
+        count += reachingNeuronsNum(input.input, updatedSeen)
       }
       count
     }
