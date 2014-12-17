@@ -30,4 +30,4 @@ resolvers ++= Seq(
 
 mainClass in assembly := Some("org.sann.Main")
 
-assemblyJarName := s"sann-${version.value}.jar"
+assemblyOutputPath in assembly := file(s"${target.value}/sann-${version.value}.jar")
