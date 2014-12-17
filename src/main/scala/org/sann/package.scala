@@ -73,8 +73,8 @@ package object sann {
         val inputSize = neurons.inputs.foldLeft(0)((size, input) => size + input.input.cardinality)
         val layerSize = neurons.cardinality
         val weight = DenseMatrix.rand[Double](layerSize, inputSize, Rand.uniform)
-        weight :*= 2
-        weight :+= -1
+        weight :*= 2.0
+        weight :+= -1.0
         weight
       }
     }

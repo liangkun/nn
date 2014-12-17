@@ -1,8 +1,6 @@
 // Copyright (c) 2014 Liang Kun. All Rights Reserved.
 // Authors: Liang Kun <liangkun@data-intelli.com>
 
-import AssemblyKeys._
-
 name := "sann"
 
 description := "Simple Artificial Neural Network"
@@ -30,8 +28,6 @@ resolvers ++= Seq(
   "Sonatype Releases" at "https://oss.sonatype.org/content/repositories/releases/"
 )
 
-mainClass in Global := Some("org.sann.Main")
+mainClass in assembly := Some("org.sann.Main")
 
-jarName in assembly := s"sann-${version.value}.jar"
-
-assemblySettings
+assemblyJarName := s"sann-${version.value}.jar"
